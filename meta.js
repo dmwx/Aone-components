@@ -50,6 +50,28 @@ module.exports = {
       when: 'isNotTest',
       type: 'string',
       message: 'Author',
+    },
+    autoInstall: {
+      when: 'isNotTest',
+      type: 'list',
+      message: 'Should we run `yarn install` for you after the project has been created? (recommended)',
+      choices: [
+        {
+          name: 'Yes, use Yarn (recommended)',
+          value: 'yarn',
+          short: 'yarn',
+        },
+        {
+          name: 'Yes, use NPM',
+          value: 'npm',
+          short: 'npm',
+        },
+        {
+          name: 'No, I will handle that myself',
+          value: false,
+          short: 'no',
+        },
+      ],
     }
   },
   complete: function(data, { chalk }) {
