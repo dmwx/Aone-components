@@ -1,6 +1,6 @@
 {
   "name": "{{ name }}",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "private": true,
   "author": "{{ author }}",
   "main": "./src/main.js",
@@ -46,9 +46,9 @@
     "not dead"
   ],
   "contributors":[
-    { 
+    {
       "name" : "shangwenhe",
-      "email" : "shangwenhe@vipkid.com.cn", 
+      "email" : "shangwenhe@vipkid.com.cn",
       "url" : "https://github.com/shangwenhe"
     }
   ],

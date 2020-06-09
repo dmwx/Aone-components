@@ -27,7 +27,7 @@ exports.sortDependencies = function sortDependencies(data) {
  */
 exports.installDependencies = function installDependencies(
   cwd,
-  executable = 'npm',
+  executable = 'yarn',
   color
 ) {
   console.log(`\n\n# ${color('Installing project dependencies ...')}`)
@@ -51,7 +51,7 @@ exports.runLintFix = function runLintFix(cwd, data, color) {
     )
     console.log('# ========================\n')
     const args =
-      data.autoInstall === 'npm'
+      data.autoInstall === 'yarn'
         ? ['run', 'lint', '--', '--fix']
         : ['run', 'lint', '--fix']
     return runCommand(data.autoInstall, args, {
