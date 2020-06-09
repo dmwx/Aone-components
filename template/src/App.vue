@@ -1,34 +1,41 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    {{#router}}
-    <router-view/>
-    {{else}}
-    <HelloWorld/>
-    {{/router}}
+  <div class='tmpl-module'>
+    <c-button></c-button>
+    module-amodule-amodule-amodule-amodule-a
   </div>
 </template>
 
-<script>
-{{#unless router}}
-import HelloWorld from './components/HelloWorld'
-
-{{/unless}}
-export default {
-  name: 'App'{{#router}}{{else}},
-  components: {
-    HelloWorld
-  }{{/router}}
-}
-</script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang='less' scoped>
+.tmpl-module {
+  color: red;
+  font-size: 30px;
 }
 </style>
+
+<script>
+/**
+ *  @file: module.vue is a <vue> file
+ *  @date: File created 2020-06-01 23:07
+ *  @author:  shangwenhe
+ */
+
+const CButton = () => import(/* webpackChunkName: 'webpackChunkNameButton' */ './components/button.vue')
+// import CButton from './components/button.vue'
+// console.log(CButton)
+export default {
+  data () {
+    return {
+    }
+  },
+  created(){
+    console.log('created')
+  },
+  props: [],
+  methods: {},
+  computed: {},
+  watch: {},
+  components: {
+    CButton
+  }
+}
+</script>
