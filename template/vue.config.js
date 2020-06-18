@@ -8,6 +8,17 @@
 
 const path = require('path');
 let { fullPath, externals, library, optimization } = require('./aone.config.js')
+let VipkidNetworkRetry = require('@aone/network-retry-webpack-plugin')
+
+let plugins = []
+
+// 生产环境添加域名重试功能
+if(process.env.NODE_ENV === 'production'){
+  plugins.push(new VipkidNetworkRetry({
+    timeout: 800,
+    domains: ['//localhost:8080', '//s.vipkidstatic.com', '//s.vipkidresource.com']
+  }))
+}
 
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production'? `/${fullPath}`: '/' ,
@@ -23,6 +34,7 @@ module.exports = {
       libraryTarget: 'umd',
       umdNamedDefine: true,
     },
+    plugins,
     optimization
   },
   pluginOptions: {
