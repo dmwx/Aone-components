@@ -10,8 +10,7 @@ const { name, version, optimization } = require('./package.json');
 
 let fullPath = `${name.replace(/\@/ig, '')}/${version}`;
 module.exports = {
-  module: '@aone/',
-  library: ['Learning','math'],
+  library: ['Aone','example'],
   fullPath: fullPath,
   optimization,
   externals: {

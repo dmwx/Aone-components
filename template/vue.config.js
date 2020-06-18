@@ -16,7 +16,7 @@ let plugins = []
 if(process.env.NODE_ENV === 'production'){
   plugins.push(new VipkidNetworkRetry({
     timeout: 800,
-    domains: ['//localhost:8080', '//s.vipkidstatic.com', '//s.vipkidresource.com']
+    domains: ['//s.vipkidstatic.com', '//s.vipkidresource.com']
   }))
 }
 
@@ -27,7 +27,7 @@ module.exports = {
   productionSourceMap: false,
   configureWebpack: {
     entry: {
-      'math': './src/index.js',
+      [ library[1] ]: './src/index.js',
     },
     output: {
       library,
