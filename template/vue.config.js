@@ -9,6 +9,8 @@
 const path = require('path');
 let { fullPath, externals, library, optimization } = require('./aone.config.js')
 let VipkidNetworkRetry = require('@aone/network-retry-webpack-plugin')
+const jsonFormat = require("json-format")
+const fs = require('fs-extra')
 
 let plugins = []
 
@@ -25,17 +27,39 @@ module.exports = {
   outputDir: path.resolve(__dirname, 'dist'),
   filenameHashing: false,
   productionSourceMap: false,
-  configureWebpack: {
-    entry: {
-      [ library[1] ]: './src/index.js',
-    },
-    output: {
-      library,
-      libraryTarget: 'umd',
-      umdNamedDefine: true,
-    },
-    plugins,
-    optimization
+  chainWebpack: config => {
+    config
+      .plugin('html')
+      .tap(args => {
+        let parameters = args[0]['templateParameters'];
+        function getAsset (compilation, assets, pluginOptions){
+          let filePath = config.output.store.get('path')
+          fs.exists(filePath, function(ex){
+            fs.mkdir(filePath, { recursive: true }, (err) => {
+              fs.writeFile(filePath + '/depends.map.json', jsonFormat(assets, { type: 'space', size: 2 }), function (error, data) {
+                if(error){
+                  console.log(error)
+                  process.exit(1);
+                }
+              })
+            });
+          });
+          return parameters(compilation, assets, pluginOptions);
+        }
+        args[0]['templateParameters'] = getAsset;
+        return args
+      });
+  },
+  configureWebpack: config => {
+    return { 
+      output: {
+        library,
+        libraryTarget: 'umd',
+        umdNamedDefine: true,
+      },
+      plugins,
+      optimization
+    }
   },
   pluginOptions: {
     externals: {
